@@ -1,8 +1,8 @@
 # SEM
-## VUT FIT SEM course
-# SEM project 1
-### author: Martin Babaca
-### mail: xbabac02@stud.fit.vutbr.cz
+##### VUT FIT SEM course
+## SEM project 1
+#### author: Martin Babaca
+##### mail: xbabac02@stud.fit.vutbr.cz
 
 ## Data structure
 Data were collected into csv files stored in *measurements* folder. Files has .txt suffix due to assignment. 
