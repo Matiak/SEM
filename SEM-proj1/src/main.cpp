@@ -1,3 +1,12 @@
+/****************************************************************************/
+/* project: SEM-proj1                                                       */
+/* file: main.cpp                                                           */
+/* author: Martin Babaca                                                    */
+/* login: xbabac02                                                          */
+/* mail: xbabac02@stud.fit.vutbr.cz                                         */
+/****************************************************************************/
+
+
 #include <Arduino.h>
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
@@ -14,6 +23,7 @@
  #define REF_OHM 100000
 //#define REF_OHM 1990
 #define B 3950
+#define THERM_POW 4
 
 // source of table: https://www.tme.eu/Document/f9d2f5e38227fc1c7d979e546ff51768/NTCM-100K-B3950.pdf
 float arr[] = { 11093.8,10156.1,9311.69,8549.81,7861.2,7237.73,6672.31,6158.7,
@@ -104,7 +114,7 @@ void loop() {
   int lm35dz_val = analogRead(LM35DZ);
   float temp_lm35dz = 500*lm35dz_val/1023.0;
 
-  digitalWrite(4,HIGH);
+  digitalWrite(THERM_POW,HIGH);
   int thermistor_val = 0;
   delay(1000);
   for (int i = 0; i < 5; i++)
@@ -112,14 +122,14 @@ void loop() {
     thermistor_val += analogRead(THERMISTOR);
   }
   delay(1000);
-  digitalWrite(4,LOW);
-  float temp_therm = thermistor_val/1023.0; // thermistor_val should be divided by 5 for one measurement, 
+  digitalWrite(THERM_POW,LOW);
+  float R_therm = thermistor_val/1023.0; // thermistor_val should be divided by 5 for one measurement, 
                                             //   but multiplied by 5 for Vcc ==>> no multiplication needed
-  temp_therm = REF_OHM*temp_therm/(5-temp_therm);
-  temp_therm /=1000.0;
+  R_therm = REF_OHM*R_therm/(5-R_therm);
+  R_therm /=1000.0;
   for(int i = 1;i<181;i++){
-    if(arr[i]<=temp_therm){
-      temp_therm=i-55-(arr[i]-temp_therm)/(arr[i]-arr[i-1]);
+    if(arr[i]<=R_therm){
+      R_therm=i-55-(arr[i]-R_therm)/(arr[i]-arr[i-1]);
       break;
     }
   }
@@ -131,7 +141,7 @@ void loop() {
     Serial.println(sensor.getTempC(),1);
     sensor.requestTemperatures();
   }
-  print_measurement(dhtTemp,sensor.getTempC(),temp_lm35dz,temp_therm,event.relative_humidity);
+  print_measurement(dhtTemp,sensor.getTempC(),temp_lm35dz,R_therm,event.relative_humidity);
   delay(delayMS);
   
 }
