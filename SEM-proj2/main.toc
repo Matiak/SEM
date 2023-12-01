@@ -1,0 +1,6 @@
+\babel@toc {slovak}{}\relax 
+\contentsline {section}{\numberline {1}Úvod}{2}{}%
+\contentsline {section}{\numberline {2}Meranie pomocou napäťového deliča}{2}{}%
+\contentsline {section}{\numberline {3}Meranie pomocou wheatstonovho mostíku}{3}{}%
+\contentsline {section}{\numberline {4}Meranie pomocou wheatstonovho mostíku s operačným zosilňovačom}{4}{}%
+\contentsline {section}{\numberline {5}Záver}{5}{}%
